@@ -34,6 +34,7 @@ export class AuthController {
     });
     return {
       user: res.user,
+      accessToken: res.tokens.accessToken,
     };
   }
 

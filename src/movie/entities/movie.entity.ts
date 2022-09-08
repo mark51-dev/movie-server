@@ -20,227 +20,227 @@ export class MovieEntity {
   @Column({
     nullable: true,
   })
-  imdbId: string | null;
+  imdbId: string;
 
   @Column({
     nullable: true,
   })
-  nameRu: string | null;
+  nameRu: string;
 
   @Column({
     nullable: true,
   })
-  nameEn: string | null;
+  nameEn: string;
 
   @Column({
     nullable: true,
   })
-  nameOriginal: string | null;
+  nameOriginal: string;
 
   @Column({
     nullable: true,
   })
-  posterUrl: string | null;
+  posterUrl: string;
 
   @Column({
     nullable: true,
   })
-  posterUrlPreview: string | null;
+  posterUrlPreview: string;
 
   @Column({
     nullable: true,
   })
-  coverUrl: string | null;
+  coverUrl: string;
 
   @Column({
     nullable: true,
   })
-  logoUrl: string | null;
+  logoUrl: string;
 
   @Column({
     nullable: true,
   })
-  reviewsCount: number | null;
-
-  @Column({
-    type: 'float',
-    nullable: true,
-  })
-  ratingGoodReview: number | null;
-
-  @Column({
-    nullable: true,
-  })
-  ratingGoodReviewVoteCount: number | null;
+  reviewsCount: number;
 
   @Column({
     type: 'float',
     nullable: true,
   })
-  ratingKinopoisk: number | null;
+  ratingGoodReview: number;
 
   @Column({
     nullable: true,
   })
-  ratingKinopoiskVoteCount: number | null;
-
-  @Column({
-    type: 'float',
-    nullable: true,
-  })
-  ratingImdb: number | null;
+  ratingGoodReviewVoteCount: number;
 
   @Column({
     type: 'float',
     nullable: true,
   })
-  ratingImdbVoteCount: number | null;
+  ratingKinopoisk: number;
+
+  @Column({
+    nullable: true,
+  })
+  ratingKinopoiskVoteCount: number;
 
   @Column({
     type: 'float',
     nullable: true,
   })
-  ratingFilmCritics: number | null;
+  ratingImdb: number;
 
   @Column({
     type: 'float',
     nullable: true,
   })
-  ratingFilmCriticsVoteCount: number | null;
+  ratingImdbVoteCount: number;
 
   @Column({
     type: 'float',
     nullable: true,
   })
-  ratingAwait: number | null;
-
-  @Column({
-    nullable: true,
-  })
-  ratingAwaitCount: number | null;
+  ratingFilmCritics: number;
 
   @Column({
     type: 'float',
     nullable: true,
   })
-  ratingRfCritics: number | null;
+  ratingFilmCriticsVoteCount: number;
+
+  @Column({
+    type: 'float',
+    nullable: true,
+  })
+  ratingAwait: number;
 
   @Column({
     nullable: true,
   })
-  ratingRfCriticsVoteCount: number | null;
+  ratingAwaitCount: number;
+
+  @Column({
+    type: 'float',
+    nullable: true,
+  })
+  ratingRfCritics: number;
 
   @Column({
     nullable: true,
   })
-  webUrl: string | null;
+  ratingRfCriticsVoteCount: number;
 
   @Column({
     nullable: true,
   })
-  year: number | null;
+  webUrl: string;
 
   @Column({
     nullable: true,
   })
-  filmLength: number | null;
+  year: number;
 
   @Column({
     nullable: true,
   })
-  slogan: string | null;
+  filmLength: number;
 
   @Column({
     nullable: true,
   })
-  description: string | null;
+  slogan: string;
 
   @Column({
     nullable: true,
   })
-  shortDescription: string | null;
+  description: string;
 
   @Column({
     nullable: true,
   })
-  editorAnnotation: string | null;
+  shortDescription: string;
 
   @Column({
     nullable: true,
   })
-  isTicketsAvailable: boolean | null;
+  editorAnnotation: string;
 
   @Column({
     nullable: true,
   })
-  productionStatus: string | null;
+  isTicketsAvailable: boolean;
 
   @Column({
     nullable: true,
   })
-  type: string | null;
+  productionStatus: string;
 
   @Column({
     nullable: true,
   })
-  ratingMpaa: string | null;
+  type: string;
 
   @Column({
     nullable: true,
   })
-  ratingAgeLimits: string | null;
+  ratingMpaa: string;
+
+  @Column({
+    nullable: true,
+  })
+  ratingAgeLimits: string;
 
   @Column('varchar', {
     nullable: true,
     array: true,
   })
-  countries: string[] | null;
+  countries: string[];
 
   @Column('varchar', {
     nullable: true,
     array: true,
   })
-  genres: string[] | null;
+  genres: string[];
 
   @Column({
     nullable: true,
   })
-  startYear: number | null;
+  startYear: number;
 
   @Column({
     nullable: true,
   })
-  endYear: number | null;
+  endYear: number;
 
   @Column({
     nullable: true,
   })
-  serial: boolean | null;
+  serial: boolean;
 
   @Column({
     nullable: true,
   })
-  shortFilm: boolean | null;
+  shortFilm: boolean;
 
   @Column({
     nullable: true,
   })
-  completed: boolean | null;
+  completed: boolean;
 
   @Column({
     nullable: true,
   })
-  hasImax: boolean | null;
+  hasImax: boolean;
 
   @Column({
     nullable: true,
   })
-  has3D: boolean | null;
+  has3D: boolean;
 
   @Column({
     nullable: true,
   })
-  lastSync: Date | null;
+  lastSync: Date;
 
   @OneToOne(() => VideoCdnMovieEntity, { eager: true, cascade: true })
   @JoinColumn()

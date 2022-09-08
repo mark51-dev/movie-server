@@ -1,17 +1,50 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import { AuthGuard } from './../shared/auth.guard';
+import { MovieEntity } from './entities/movie.entity';
+import { Controller, Get, Param, UseGuards } from '@nestjs/common';
 import { MovieService } from './movie.service';
 
 @Controller('movie')
+@UseGuards(AuthGuard)
 export class MovieController {
   constructor(private readonly movieService: MovieService) {}
 
   @Get('all')
-  fetchAllMovies() {
-    return this.movieService.findAll();
+  async fetchAllMovies(): Promise<MovieEntity[]> {
+    return (await this.movieService.findAll()).map((item) => {
+      return {
+        ...item,
+        countries: item.countries.map((mapItem) => JSON.parse(mapItem).country),
+        genres: item.genres.map((mapItem) => JSON.parse(mapItem).genre),
+      };
+    });
   }
 
   @Get(':id')
-  fetchMovieDetails(@Param('id') movieIdByKP: string) {
-    return this.movieService.findOneMovieByKPId(movieIdByKP);
+  async fetchMovieDetails(
+    @Param('id') movieIdByKP: string,
+  ): Promise<MovieEntity> {
+    const movie = await this.movieService.findOneMovieByKPId(movieIdByKP);
+    return {
+      ...movie,
+      countries: movie.countries.map((item) => JSON.parse(item).country),
+      genres: movie.genres.map((item) => JSON.parse(item).genre),
+    };
+  }
+
+  @Get('search/:search')
+  async fetchMoviesBySearch(
+    @Param('search') searchValue: string,
+  ): Promise<MovieEntity[]> {
+    return (await this.movieService.fetchMoviesBySearch(searchValue)).map(
+      (item) => {
+        return {
+          ...item,
+          countries: item.countries.map(
+            (mapItem) => JSON.parse(mapItem).country,
+          ),
+          genres: item.genres.map((mapItem) => JSON.parse(mapItem).genre),
+        };
+      },
+    );
   }
 }

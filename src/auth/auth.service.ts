@@ -21,15 +21,13 @@ export class AuthService {
 
   async createUser(userDto: UserDto) {
     const user = await this.userEntityRepository.findOneBy({
-      username: userDto.username,
+      email: userDto.email,
     });
-
     if (user) {
       throw new HttpException(`User already exist`, HttpStatus.CONFLICT);
     }
 
     const accessAndRefreshTokens = this.tokenService.generateTokens({
-      username: userDto.username,
       email: userDto.email,
     });
     const userRes = await this.userEntityRepository.create({
@@ -65,7 +63,6 @@ export class AuthService {
     }
 
     const accessAndRefreshTokens = this.tokenService.generateTokens({
-      username: userDto.username,
       email: userDto.email,
     });
 
@@ -100,7 +97,6 @@ export class AuthService {
     });
 
     const accessAndRefreshTokens = this.tokenService.generateTokens({
-      username: validUser.username,
       email: validUser.email,
     });
 
