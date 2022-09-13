@@ -113,4 +113,25 @@ export class AuthService {
       tokens: accessAndRefreshTokens,
     };
   }
+
+  async logout(token: UserDto) {
+    const user = await this.userEntityRepository.findOneBy({
+      refreshToken: token.refreshToken,
+    });
+    if (!user) {
+      throw new HttpException(`Unauthorized user`, HttpStatus.UNAUTHORIZED);
+    }
+
+    await this.userEntityRepository.update(
+      {
+        email: user.email,
+      },
+      {
+        refreshToken: '',
+      },
+    );
+    return {
+      logout: true,
+    };
+  }
 }

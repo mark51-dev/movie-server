@@ -1,6 +1,6 @@
 import { AuthGuard } from './../shared/auth.guard';
 import { MovieEntity } from './entities/movie.entity';
-import { Controller, Get, Param, UseGuards } from '@nestjs/common';
+import { Controller, Get, Param, Query, UseGuards } from '@nestjs/common';
 import { MovieService } from './movie.service';
 
 @Controller('movie')
@@ -46,5 +46,23 @@ export class MovieController {
         };
       },
     );
+  }
+
+  @Get('all/pagination')
+  async fetchMoviesByLimit(
+    @Query('page') page: string,
+  ): Promise<{ items: MovieEntity[]; count: number }> {
+    const moviesAndCount = await this.movieService.fetchMoviesByLimit(page);
+    const itemsRes = moviesAndCount.items.map((item) => {
+      return {
+        ...item,
+        countries: item.countries.map((mapItem) => JSON.parse(mapItem).country),
+        genres: item.genres.map((mapItem) => JSON.parse(mapItem).genre),
+      };
+    });
+    return {
+      items: itemsRes,
+      count: moviesAndCount.count,
+    };
   }
 }

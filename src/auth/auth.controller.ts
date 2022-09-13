@@ -1,7 +1,7 @@
 import { Body, Controller, Post, Req, Res } from '@nestjs/common';
 import { UserDto } from './dto/user.dto';
 import { AuthService } from './auth.service';
-import { Response } from 'express';
+import { response, Response } from 'express';
 import { Request } from 'express';
 
 @Controller('auth')
@@ -9,7 +9,7 @@ export class AuthController {
   constructor(private readonly authService: AuthService) {}
   @Post('login')
   async login(
-    @Body() body: any,
+    @Body() body: UserDto,
     @Res({ passthrough: true }) response: Response,
   ): Promise<any> {
     const tokens = await this.authService.login(body);
@@ -50,6 +50,20 @@ export class AuthController {
     });
     return {
       accessToken: tokens.accessToken,
+    };
+  }
+
+  @Post('logout')
+  async logout(
+    @Req() request: Request,
+    @Res({ passthrough: true }) response: Response,
+  ): Promise<any> {
+    const { logout } = await this.authService.logout(request.cookies);
+    if (logout) {
+      response.clearCookie('refreshToken');
+    }
+    return {
+      logout,
     };
   }
 }

@@ -25,4 +25,17 @@ export class MovieService {
       nameRu: ILike(`%${searchValue}%`),
     });
   }
+
+  async fetchMoviesByLimit(
+    offset: string,
+  ): Promise<{ items: MovieEntity[]; count: number }> {
+    const [items, count] = await this.movieRepository.findAndCount({
+      skip: parseInt(offset),
+      take: 25,
+    });
+    return {
+      items,
+      count,
+    };
+  }
 }
