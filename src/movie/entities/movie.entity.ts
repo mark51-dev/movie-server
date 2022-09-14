@@ -241,6 +241,10 @@ export class MovieEntity {
     nullable: true,
   })
   lastSync: Date;
+  @Column({
+    default: false,
+  })
+  dashManifestExists: boolean;
 
   @OneToOne(() => VideoCdnMovieEntity, { eager: true, cascade: true })
   @JoinColumn()
