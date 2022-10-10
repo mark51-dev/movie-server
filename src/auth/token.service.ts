@@ -4,8 +4,8 @@ import * as jwt from 'jsonwebtoken';
 @Injectable()
 export class TokenService {
   generateTokens(userDto: any) {
-    const accessToken = jwt.sign(userDto, 'secretkey', { expiresIn: '15m' });
-    const refreshToken = jwt.sign(userDto, 'secretkey2', { expiresIn: '30d' });
+    const accessToken = jwt.sign(userDto, 'secretkey', { expiresIn: '15s' });
+    const refreshToken = jwt.sign(userDto, 'secretkey2', { expiresIn: '10m' });
     return { accessToken, refreshToken };
   }
 
